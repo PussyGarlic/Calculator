@@ -28,13 +28,42 @@ public class Main {
         };
         if (system == NumeralSystem.ROMAN && result < 1)
             throw new RuntimeException();
-        System.out.println(result);
-//        System.out.println(switch (system) {
-//            case ARABIC -> result;
-//            case ROMAN -> {
-//
-//            };
-//        });
+        System.out.println(switch (system) {
+            case ARABIC -> result;
+            case ROMAN -> toRoman(result);
+        });
+    }
+
+    public static String toRoman(int result) {
+        if (result == 100)
+            return "C";
+        var tens = switch (result /10){
+            case 0 -> "";
+            case 1 -> "X";
+            case 2 -> "XX";
+            case 3 -> "XXX";
+            case 4 -> "XL";
+            case 5 -> "L";
+            case 6 -> "LX";
+            case 7 -> "LXX";
+            case 8 -> "LXXX";
+            case 9 -> "XC";
+            default -> throw new RuntimeException();
+        };
+        var digits = switch (result %10){
+            case 0 -> "";
+            case 1 -> "I";
+            case 2 -> "II";
+            case 3 -> "III";
+            case 4 -> "IV";
+            case 5 -> "V";
+            case 6 -> "VI";
+            case 7 -> "VII";
+            case 8 -> "VIII";
+            case 9 -> "IX";
+            default -> throw new RuntimeException();
+        };
+        return tens + digits;
     }
 
     enum NumeralSystem { ARABIC, ROMAN }
